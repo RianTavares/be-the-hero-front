@@ -3,13 +3,20 @@ import './styles.css'
 import logoImage from '../../assets/logo.svg'
 import { FiPower } from 'react-icons/fi'
 import { FiTrash2 } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import api from '../../services/api'
 
 export default function Logon() {
     const [incidents, setIncidents] = useState([])
     const ongName = localStorage.getItem('ongName')
     const ongId = localStorage.getItem('ongId')
+    const history = useHistory()
+
+
+    function handleLogout() {
+        localStorage.clear()
+        history.push('/')
+    }
 
     async function handleDeletIncident(id) {
 
@@ -43,7 +50,7 @@ export default function Logon() {
               <span>Bem vinda, {ongName}</span>
             
                 <Link to="/incidents/new" className="button">Cadastrar novo caso</Link>
-                <button type="button">
+                <button onClick={handleLogout} type="button">
                     <FiPower size={18} color="E02041"/>
                 </button>
             </header>
